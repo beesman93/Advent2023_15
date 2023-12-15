@@ -1,19 +1,12 @@
-﻿
-using System.Collections;
-using System.Collections.Specialized;
-using System.Text;
+﻿using System.Collections.Specialized;
 
-List<string> lines = new();
+string line;
 using (StreamReader reader = new(args[0]))
-{
-    while (!reader.EndOfStream)
-    {
-        lines.Add(reader.ReadLine());
-    }
-}
-var line = lines[0];
+{line = reader.ReadLine();}
 
-part1(); part2();
+part1();
+part2();
+
 void part1()
 {
     int total = 0;
@@ -21,6 +14,7 @@ void part1()
         total += hash(a);
     Console.WriteLine(total);
 }
+
 void part2()
 {
     OrderedDictionary[] boxes = new OrderedDictionary[256];
@@ -58,6 +52,6 @@ int hash(string a)
 {
     int hash = 0;
     foreach (char c in a)
-        hash = ((hash + c) * 17) & 255;
+        hash = (((hash + c)<<4)+(hash+c)) & 255;
     return hash;
 }
