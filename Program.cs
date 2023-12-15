@@ -18,12 +18,7 @@ void part1()
 {
     int total = 0;
     foreach (string a in line.Split(','))
-    {
-        int hash = 0;
-        foreach(char c in a)
-            hash=hashish(hash, c);
-        total += hash;
-    }
+        total += hash(a);
     Console.WriteLine(total);
 }
 void part2()
@@ -36,11 +31,7 @@ void part2()
         string aa = eqSplit[0].Split('-')[0];
         int val = 0;
         if (equalsOP) val = Convert.ToInt32(eqSplit[1]);
-
-        int currentHash = 0;
-        foreach (char c in aa)
-            currentHash = hashish(currentHash, c);
-
+        int currentHash = hash(aa);
         if (equalsOP)
         {
             if (boxes[currentHash] is null)
@@ -63,7 +54,10 @@ void part2()
     Console.WriteLine(answer);
 }
 
-int hashish (in int curr,in int b)
+int hash(string a)
 {
-    return ((curr + b) * 17) & 255;
+    int hash = 0;
+    foreach (char c in a)
+        hash = ((hash + c) * 17) & 255;
+    return hash;
 }
